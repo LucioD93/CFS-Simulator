@@ -1,10 +1,10 @@
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ */ // class RedBlackNode
 public class RedBlackTree<T extends Comparable<T>> {
 
     private RedBlackNode<T> nil = new RedBlackNode<T>();
-    private RedBlackNode<T> root = nil;
+    public RedBlackNode<T> root = nil;
 
     public RedBlackTree() {
         root.leftChild = nil;
@@ -159,7 +159,7 @@ public class RedBlackTree<T extends Comparable<T>> {
     }// end rightRotateFixup(RedBlackNode y)
 
 
-    public void insert(T key) {
+    synchronized public void insert(T key) {
         insert(new RedBlackNode<T>(key));
     }
 
@@ -290,6 +290,10 @@ public class RedBlackTree<T extends Comparable<T>> {
 
     }// end insertFixup(RedBlackNode z)
 
+    public RedBlackNode<T> treeMinimum() {
+        return this.treeMinimum(this.root);
+    }
+
     // @param: node, a RedBlackNode
     // @param: node, the node with the smallest key rooted at node
     public RedBlackNode<T> treeMinimum(RedBlackNode<T> node){
@@ -327,7 +331,7 @@ public class RedBlackTree<T extends Comparable<T>> {
 
     // @param: z, the RedBlackNode which is to be removed from the the tree
     // Remove's z from the RedBlackTree rooted at root
-    public void remove(RedBlackNode<T> v){
+    synchronized public void remove(RedBlackNode<T> v){
 
         RedBlackNode<T> z = search(v.key);
 
@@ -541,8 +545,6 @@ public class RedBlackTree<T extends Comparable<T>> {
     }// end removeFixup(RedBlackNode x)
 
 
-
-
     // @param: key, the key whose node we want to search for
     // @return: returns a node with the key, key, if not found, returns null
     // Searches for a node with key k and returns the first such node, if no
@@ -575,95 +577,5 @@ public class RedBlackTree<T extends Comparable<T>> {
 
 
     }// end search(int key)
-
-    // @param: key, any Comparable object
-    // @return: return's the number of elements greater than key
-    public int numGreater(T key){
-
-        // Call findNumGreater(root, key) which will return the number
-        // of nodes whose key is greater than key
-        return findNumGreater(root,key);
-
-    }// end numGreater(int key)
-
-
-    // @param: key, any Comparable object
-    // @return: return's teh number of elements smaller than key
-    public int numSmaller(T key){
-
-        // Call findNumSmaller(root,key) which will return
-        // the number of nodes whose key is greater than key
-        return findNumSmaller(root,key);
-
-    }// end numSmaller(int key)
-
-
-    // @param: node, the root of the tree, the key who we must
-    // compare other node key's to.
-    // @return: the number of nodes greater than key.
-    public int findNumGreater(RedBlackNode<T> node, T key){
-
-        // Base Case: if node is nil, return 0
-        if (node == nil)
-            return 0;
-            // If key is less than node.key, all elements rightChild of node are
-            // greater than key, add this to our total and look to the leftChild
-        else if (key.compareTo(node.key) < 0)
-            return 1+ node.numberRightChildren + findNumGreater(node.leftChild,key);
-
-            // If key is greater than node.key, then look to the rightChild as
-            // all elements to the leftChild of node are smaller than key
-        else
-            return findNumGreater(node.rightChild,key);
-
-    }// end findNumGreater(RedBlackNode, int key)
-
-    /**
-     * Returns sorted list of keys greater than key.  Size of list
-     * will not exceed maxReturned
-     * @param key Key to search for
-     * @param maxReturned Maximum number of results to return
-     * @return List of keys greater than key.  List may not exceed maxReturned
-     */
-    public List<T> getGreaterThan(T key, Integer maxReturned) {
-        List<T> list = new ArrayList<T>();
-        getGreaterThan(root, key, list);
-        return list.subList(0, Math.min(maxReturned, list.size()));
-    }
-
-
-    private void getGreaterThan(RedBlackNode<T> node, T key,
-                                List<T> list) {
-        if (node == nil) {
-            return;
-        } else if (node.key.compareTo(key) > 0) {
-            getGreaterThan(node.leftChild, key, list);
-            list.add(node.key);
-            getGreaterThan(node.rightChild, key, list);
-        } else {
-            getGreaterThan(node.rightChild, key, list);
-        }
-    }
-
-    // @param: node, the root of the tree, the key who we must compare other
-    // node key's to.
-    // @return: the number of nodes smaller than key.
-    public int findNumSmaller(RedBlackNode<T> node, T key){
-
-        // Base Case: if node is nil, return 0
-        if (node == nil) return 0;
-
-            // If key is less than node.key, look to the leftChild as all
-            // elements on the rightChild of node are greater than key
-        else if (key.compareTo(node.key) <= 0)
-            return findNumSmaller(node.leftChild,key);
-
-            // If key is larger than node.key, all elements to the leftChild of
-            // node are smaller than key, add this to our total and look
-            // to the rightChild.
-        else
-            return 1+ node.numberLeftChildren + findNumSmaller(node.rightChild,key);
-
-    }
 
 }

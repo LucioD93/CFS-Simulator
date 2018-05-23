@@ -4,76 +4,71 @@ import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Attribute;
+import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class XMLParser {
-    static final String PROGRAM = "program";
-    static final String PID = "pid";
-    static final String TIME_REMAINING = "timeRemaining";
-    static final String TIME_OF_ARRIVAL = "timeOfArrival";
+    static final String PROGRAM = "Process";
+    static final String PID = "Id";
+    static final String TIME_REMAINING = "ExecutionTime";
 
-    XMLEventReader eventReader;
-
-    public XMLParser(String file) {
+    public ArrayList<Program> readXMLFile(String file) {
+        ArrayList<Program> programs = new ArrayList<Program>();
         try {
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
             InputStream inputStream = new FileInputStream(file);
-            this.eventReader = inputFactory.createXMLEventReader(inputStream);
+            XMLEventReader eventReader = inputFactory.createXMLEventReader(inputStream);
+            int pid = 0;
+            int timeRemaining = 0;
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return;
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<Program> readFile() {
-        List<Program> list = null;
-        while (this.eventReader.hasNext()) {
-
-        }
-        return list;
-    }
-
-    public Program readNextProgram() {
-        try {
-            if (this.eventReader.hasNext()) {
+            while (eventReader.hasNext()) {
                 XMLEvent event = eventReader.nextEvent();
+
                 if (event.isStartElement()) {
                     StartElement startElement = event.asStartElement();
                     if (startElement.getName().getLocalPart().equals(PROGRAM)) {
-                        int pid = 0;
-                        int timeRemaining = 0;
-                        int timeOfArrival = 0;
+
                         Iterator<Attribute> attributes = startElement.getAttributes();
                         while (attributes.hasNext()) {
                             Attribute attribute = attributes.next();
-                            if (attribute.getName().toString().equals(PID)){
+                            if (attribute.getName().toString().equals(PID)) {
                                 pid = Integer.valueOf(attribute.getValue());
                             }
-                            if (attribute.getName().toString().equals(TIME_REMAINING)) {
-                                timeRemaining = Integer.valueOf(attribute.getValue());
-                            }
-                            if (attribute.getName().toString().equals(TIME_OF_ARRIVAL)) {
-                                timeOfArrival = Integer.valueOf(attribute.getValue());
-                            }
                         }
-                        return new Program(pid, timeRemaining, timeOfArrival);
+                    }
+
+                    if (event.isStartElement()) {
+                        if (event.asStartElement().getName().getLocalPart().equals(TIME_REMAINING)) {
+                            event = eventReader.nextEvent();
+                            timeRemaining = Integer.valueOf(event.asCharacters().getData());
+                            continue;
+                        }
                     }
                 }
-            }
-        }
-        catch (XMLStreamException e) {
+
+                    if (event.isEndElement()) {
+                        EndElement endElement = event.asEndElement();
+                        if (endElement.getName().getLocalPart().equals(PROGRAM)) {
+                            programs.add(new Program(pid, timeRemaining));
+                        }
+                    }
+
+                }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (XMLStreamException e) {
             e.printStackTrace();
         }
-        return null;
+        return programs;
     }
+
 
 }

@@ -8,12 +8,12 @@ class CubbyHole{
 
     private int quantum = 0;
 
-    public void new_proccess(int who, ArrayList<Program> program_list){
+    public void new_proccess(ArrayList<Program> program_list){
         Program program = program_list.remove(0);
         tree.insert(program);
     }
 
-    public Program get_process(int who){
+    public Program get_process(){
         Program program = tree.pop_most_left().get_key();
 
         if (program.isCompleted(quantum)){
@@ -36,16 +36,35 @@ class CubbyHole{
 }
 
 
+class Producer extends Thread {
+    private CubbyHole cubbyHole;
+    private ArrayList<Program> program_list;
+
+    public Producer(CubbyHole c, ArrayList<Program> program_list){
+        this.cubbyHole = c;
+        this.program_list = program_list;
+    }
+
+    public void run(){
+        while (!program_list.isEmpty()){
+            this.cubbyHole.new_proccess(program_list);
+        }
+    }
+}
+
+
 public class Main {
     public synchronized static void main(String[] args) {
         ArrayList<Program> program_list = new ArrayList<Program>();
 
-        CubbyHole cubbyhole = new CubbyHole();
+        CubbyHole cubbyHole = new CubbyHole();
 
         XMLParser xmlparser = new XMLParser();
 
         program_list = xmlparser.readXMLFile("process.xml");
 
-        cubbyhole.new_proccess(1, program_list);
+        Producer p1 = new Producer(cubbyHole, program_list);
+
+        p1.run();
     }
 }

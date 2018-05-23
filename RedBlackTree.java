@@ -5,11 +5,13 @@ public class RedBlackTree<T extends Comparable<T>> {
 
     private RedBlackNode<T> nil = new RedBlackNode<T>();
     public RedBlackNode<T> root = nil;
+    private int numberOfNodes = 0;
 
     public RedBlackTree() {
         root.leftChild = nil;
         root.rightChild = nil;
         root.parent = nil;
+        this.numberOfNodes = 0;
     }
 
     // @param: x, The node which the lefRotate is to be performed on.
@@ -167,6 +169,8 @@ public class RedBlackTree<T extends Comparable<T>> {
     // Inserts z into the appropriate position in the RedBlackTree while
     // updating numberLeftChildren and numberRightChildren values.
     private void insert(RedBlackNode<T> z) {
+
+        this.numberOfNodes++;
 
         // Create a reference to root & initialize a node to nil
         RedBlackNode<T> y = nil;
@@ -332,6 +336,8 @@ public class RedBlackTree<T extends Comparable<T>> {
     // @param: z, the RedBlackNode which is to be removed from the the tree
     // Remove's z from the RedBlackTree rooted at root
     synchronized public void remove(RedBlackNode<T> v){
+
+        this.numberOfNodes--;
 
         RedBlackNode<T> z = search(v.key);
 
@@ -577,5 +583,9 @@ public class RedBlackTree<T extends Comparable<T>> {
 
 
     }// end search(int key)
+
+    public boolean isEmpty() {
+        return this.root == nil;
+    }
 
 }

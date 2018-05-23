@@ -10,7 +10,7 @@ exec_time = 1
 
 f = file("process.xml", "w")
 
-f.write('<?xml version="1.0" encoding="UTF-8"?>')
+f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
 
 f.write("<ProcessInfo>\n")
 

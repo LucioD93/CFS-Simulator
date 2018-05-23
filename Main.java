@@ -8,12 +8,12 @@ class CubbyHole{
 
     private int quantum = 0;
 
-    public void new_proccess(ArrayList<Program> program_list){
+    public synchronized void new_proccess(ArrayList<Program> program_list){
         Program program = program_list.remove(0);
         tree.insert(program);
     }
 
-    public Program get_process(){
+    public synchronized Program get_process(){
         Program program = tree.pop_most_left().get_key();
 
         if (program.isCompleted(quantum)){
@@ -48,6 +48,21 @@ class Producer extends Thread {
     public void run(){
         while (!program_list.isEmpty()){
             this.cubbyHole.new_proccess(program_list);
+        }
+    }
+}
+
+
+class CPU extends Thread {
+    private CubbyHole cubbyHole;
+
+    public CPU(CubbyHole cubbyHole){
+        this.cubbyHole = cubbyHole;
+    }
+
+    public void run(){
+        while(true){
+            this.cubbyHole.get_process();
         }
     }
 }

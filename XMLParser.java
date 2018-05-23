@@ -9,8 +9,8 @@ import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class XMLParser {
     static final String PROGRAM = "program";
@@ -34,8 +34,8 @@ public class XMLParser {
         }
     }
 
-    public List<Program> readFile() {
-        List<Program> list = null;
+    public ArrayList<Program> readFile() {
+        ArrayList<Program> list = null;
         while (this.eventReader.hasNext()) {
 
         }

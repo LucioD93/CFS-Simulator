@@ -2,13 +2,11 @@ public class Program implements Comparable<Program> {
 
     private int pid;
     private int timeRemaining;
-    private int timeOfArrival;
     private int timeExecuted;
 
-    public Program(int pid, int timeRemaining, int timeOfArrival) {
+    public Program(int pid, int timeRemaining) {
         this.pid = pid;
         this.timeRemaining = timeRemaining;
-        this.timeOfArrival = timeOfArrival;
         this.timeExecuted = 0;
     }
 

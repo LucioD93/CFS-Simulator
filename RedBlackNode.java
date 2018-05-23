@@ -30,11 +30,17 @@ class RedBlackNode<T extends Comparable<T>> {
         parent = null;
         leftChild = null;
         rightChild = null;
+
+
     }
 
     // Constructor which sets key to the argument.
     RedBlackNode(T key){
         this();
         this.key = key;
+    }
+
+    public T get_key(){
+        return this.key;
     }
 }// end class RedBlackNode

@@ -20,13 +20,12 @@ public class Program implements Comparable<Program> {
 
     @Override
     public int compareTo(Program program) {
-        if (this.timeRemaining < program.timeRemaining) {
+        if (this.timeExecuted < program.timeExecuted) {
             return -1;
-        } else if (this.timeRemaining == program.timeRemaining) {
+        } else if (this.timeExecuted == program.timeExecuted) {
             return 0;
         } else {
             return 1;
         }
     }
-
 }

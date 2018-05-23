@@ -161,7 +161,7 @@ public class RedBlackTree<T extends Comparable<T>> {
     }// end rightRotateFixup(RedBlackNode y)
 
 
-    synchronized public void insert(T key) {
+    public void insert(T key) {
         insert(new RedBlackNode<T>(key));
     }
 
@@ -335,7 +335,7 @@ public class RedBlackTree<T extends Comparable<T>> {
 
     // @param: z, the RedBlackNode which is to be removed from the the tree
     // Remove's z from the RedBlackTree rooted at root
-    synchronized public void remove(RedBlackNode<T> v){
+    public void remove(RedBlackNode<T> v){
 
         this.numberOfNodes--;
 
@@ -387,6 +387,17 @@ public class RedBlackTree<T extends Comparable<T>> {
         if (y.color == RedBlackNode.BLACK)
             removeFixup(x);
     }// end remove(RedBlackNode z)
+
+
+    // @param: z, the RedBlackNode which is to be removed from the the tree
+    // Remove's z from the RedBlackTree rooted at root
+    public RedBlackNode<T> pop_most_left(){
+        RedBlackNode<T> rb_node = this.treeMinimum();
+
+        this.remove(rb_node);
+
+        return rb_node;
+    }// end pop_most_left()
 
 
     // @param: y, the RedBlackNode which was actually deleted from the tree

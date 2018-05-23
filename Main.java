@@ -1,25 +1,70 @@
-public class Main {
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
-    public static void main(String[] args) {
+import static java.lang.Thread.sleep;
 
-        Program p1 = new Program(1, 5, 0);
+class CubbyHole{
+    private RedBlackTree<Program> tree = new RedBlackTree<>();
 
-        RedBlackTree<Program> tree = new RedBlackTree<>();
-        tree.insert(p1);
-        tree.insert(new Program(2, 10, 0));
-        tree.insert(new Program(3, 15, 0));
-        tree.insert(new Program(4, 20, 0));
-        tree.insert(new Program(5, 25, 0));
-        tree.insert(new Program(6, 30, 0));
-        tree.insert(new Program(7, 35, 0));
-        tree.insert(new Program(8, 40, 0));
+    private int quantum = 0;
 
-        tree.remove(tree.treeMinimum());
-        tree.remove(tree.treeMinimum());
-        tree.remove(tree.treeMinimum());
-
-        System.out.println("Todo bien");
-
+    public void new_proccess(ArrayList<Program> program_list){
+        Program program = program_list.remove(0);
+        tree.insert(program);
     }
 
+    public Program get_process(){
+        Program program = tree.pop_most_left().get_key();
+
+        if (program.isCompleted(quantum)){
+            // Here we wait the remaining time for the process.
+            try {
+                sleep(quantum);
+            } catch (InterruptedException e) { }
+        } else {
+            program.addExecutedTime(quantum);
+            tree.insert(program);
+
+            // Here we wait quantum.
+            try {
+                sleep(quantum);
+            } catch (InterruptedException e) { }
+        }
+
+        return program;
+    }
+}
+
+
+class Producer extends Thread {
+    private CubbyHole cubbyHole;
+    private ArrayList<Program> program_list;
+
+    public Producer(CubbyHole c, ArrayList<Program> program_list){
+        this.cubbyHole = c;
+        this.program_list = program_list;
+    }
+
+    public void run(){
+        while (!program_list.isEmpty()){
+            this.cubbyHole.new_proccess(program_list);
+        }
+    }
+}
+
+
+public class Main {
+    public synchronized static void main(String[] args) {
+        ArrayList<Program> program_list = new ArrayList<Program>();
+
+        CubbyHole cubbyHole = new CubbyHole();
+
+        XMLParser xmlparser = new XMLParser();
+
+        program_list = xmlparser.readXMLFile("process.xml");
+
+        Producer p1 = new Producer(cubbyHole, program_list);
+
+        p1.run();
+    }
 }

@@ -38,11 +38,14 @@ class CubbyHole{
 
 public class Main {
     public synchronized static void main(String[] args) {
-        ArrayList<Program> program_list = new ArrayList<>();
+        ArrayList<Program> program_list = new ArrayList<Program>();
 
-        XMLParser xmlparser = new XMLParser(args[1]);
+        CubbyHole cubbyhole = new CubbyHole();
 
-        program_list = xmlparser.readFile();
+        XMLParser xmlparser = new XMLParser();
 
+        program_list = xmlparser.readXMLFile("process.xml");
+
+        cubbyhole.new_proccess(1, program_list);
     }
 }

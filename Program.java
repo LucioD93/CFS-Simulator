@@ -10,12 +10,24 @@ public class Program implements Comparable<Program> {
         this.timeExecuted = 0;
     }
 
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
     public void addExecutedTime(int time) {
         this.timeExecuted += time;
     }
 
     public boolean isCompleted(int quantum) {
         return this.timeExecuted + quantum >= this.timeRemaining;
+    }
+
+    public Object[] toArray(){
+        return new Object[] {this.pid, this.timeRemaining, this.timeExecuted};
     }
 
     @Override

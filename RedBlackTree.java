@@ -577,6 +577,7 @@ public class RedBlackTree<T extends Comparable<T>> {
             // If we have found a node with a key equal to key
             if (current.key.equals(key))
 
+
                 // return that node and exit search(int)
                 return current;
 
@@ -599,4 +600,7 @@ public class RedBlackTree<T extends Comparable<T>> {
         return this.root == nil;
     }
 
+    public int getNumberOfNodes() {
+        return numberOfNodes;
+    }
 }

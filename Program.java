@@ -22,6 +22,14 @@ public class Program implements Comparable<Program> {
         this.timeExecuted += time;
     }
 
+    public int getExecutedTime() {
+    	return timeExecuted;
+    }
+    
+    public int getTimeRemaining() {
+    	return timeRemaining;
+    }
+    
     public boolean isCompleted(int quantum) {
         return this.timeExecuted + quantum >= this.timeRemaining;
     }

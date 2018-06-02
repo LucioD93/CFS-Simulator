@@ -65,22 +65,34 @@ class CubbyHole{
         Program program = this.tree.pop_most_left().get_key();
 
         // Update process in GUI.
-        this.gui.setDtm_cpu(1, program.getPid());
+        //this.gui.setDtm_cpu(0, program.getPid());
+        int auxPid = program.getPid();
+        this.gui.updateDtm_cpu(0, auxPid);
 
         if (program.isCompleted(this.quantum)){
             // Here we wait the remaining time for the process.
             try {
                 sleep(this.quantum);
             } catch (InterruptedException e) { }
+            
+            //We update the table
+            this.gui.updateDtm(auxPid, program.getTimeRemaining());
+            
         } else {
-            // If program does not finish. Add time and return to tree.
-            program.addExecutedTime(this.quantum);
+            // If program does not finish. We add the executed time and return it to the queue.
 
             // Here we wait quantum.
             try {
                 sleep(this.quantum);
             } catch (InterruptedException e) { }
-
+            
+            //Add runtime of cpu.
+            program.addExecutedTime(this.quantum);
+            
+            //Update Executed Time in table.
+            this.gui.updateDtm(auxPid, program.getExecutedTime());
+            
+            //Insert into the tree
             this.tree.insert(program);
         }
 

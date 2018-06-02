@@ -19,7 +19,7 @@ public class GUI extends JFrame {
         super("Super Awesome CFS Simulator.");
         setLayout(new FlowLayout());
 
-        this.quantum = new JLabel("Aca va a ir un valor que viene de otro lado.");
+        this.quantum = new JLabel("El Quantum");
         add(this.quantum);
 
         // Loads program_list into table.
@@ -58,6 +58,10 @@ public class GUI extends JFrame {
     public void setDtm(DefaultTableModel dtm) {
         this.dtm = dtm;
     }
+    
+    public void updateDtm(int process,int time){
+    	this.dtm.setValueAt(time,process,2);
+    }
 
     public DefaultTableModel getDtm_cpu() {
         return dtm_cpu;
@@ -66,7 +70,11 @@ public class GUI extends JFrame {
     public void setDtm_cpu(int cpu, int process) {
         Object [] aux = {cpu, process};
         this.dtm_cpu.addRow(aux);
-
+    	
         add(new JScrollPane(this.cpu_data));
+    }
+    
+    public void updateDtm_cpu(int cpu, int process){
+    	this.dtm_cpu.setValueAt(process,cpu,1);
     }
 }

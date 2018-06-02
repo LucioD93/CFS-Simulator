@@ -10,7 +10,7 @@ public class Main {
         // Set critical region and producer consumer.
         CubbyHole cubbyHole = new CubbyHole(program_list);
         Producer p1 = new Producer(cubbyHole, program_list);
-        CPU cpu1 = new CPU(cubbyHole);
+        CPU cpu1 = new CPU(cubbyHole,0);
 
         p1.run();
         cpu1.run();

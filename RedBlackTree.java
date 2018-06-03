@@ -601,6 +601,6 @@ public class RedBlackTree<T extends Comparable<T>> {
     }
 
     public int getNumberOfNodes() {
-        return numberOfNodes;
+        return this.numberOfNodes;
     }
 }

@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Program implements Comparable<Program> {
 
     private int pid;
@@ -11,7 +13,7 @@ public class Program implements Comparable<Program> {
     }
 
     public int getPid() {
-        return pid;
+        return this.pid;
     }
 
     public void setPid(int pid) {
@@ -19,15 +21,23 @@ public class Program implements Comparable<Program> {
     }
 
     public void addExecutedTime(int time) {
-        this.timeExecuted += time;
+        Random random = new Random();
+        int rand = random.nextInt(10) + 1;
+        
+        // Add random time, less than quantum, to simulate interruptions.
+        if (rand % 3 == 0){
+            this.timeExecuted += (time - rand);
+        } else {
+            this.timeExecuted += time;
+        }
     }
 
     public int getExecutedTime() {
-    	return timeExecuted;
+    	return this.timeExecuted;
     }
     
     public int getTimeRemaining() {
-    	return timeRemaining;
+    	return this.timeRemaining;
     }
     
     public boolean isCompleted(int quantum) {

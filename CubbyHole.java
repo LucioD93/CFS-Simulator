@@ -6,7 +6,7 @@ import static java.lang.Thread.sleep;
 class CubbyHole{
     private RedBlackTree<Program> tree = new RedBlackTree<>();
 
-    private int initialQuantum = 2;
+    private int initialQuantum = 100;
     private int quantum = 2;
     private GUI gui;
 
@@ -30,7 +30,7 @@ class CubbyHole{
     }
 
     public int getQuantum() {
-        return quantum;
+        return this.quantum;
     }
 
     public void setQuantum(int quantum) {
@@ -38,11 +38,11 @@ class CubbyHole{
     }
 
     public int getInitialQuantum() {
-        return initialQuantum;
+        return this.initialQuantum;
     }
 
     public RedBlackTree<Program> getTree() {
-        return tree;
+        return this.tree;
     }
 
     public synchronized void new_proccess(ArrayList<Program> program_list){

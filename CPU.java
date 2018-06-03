@@ -15,6 +15,7 @@ class CPU extends Thread {
         if (this.cubbyHole.getTree().getNumberOfNodes() == 0) {
             return this.cubbyHole.getInitialQuantum();
         }
+
         return this.cubbyHole.getInitialQuantum()/this.cubbyHole.getTree().getNumberOfNodes();
     }
 
@@ -22,10 +23,11 @@ class CPU extends Thread {
         while(true){
             this.pId = this.cubbyHole.get_process(this.cpuId).getPid();
             this.quantum = this.calculateQuantum();
-
+            this.cubbyHole.setQuantum(this.quantum);
+            
             try {
                 System.out.println("CPU " + this.cpuId + " Dormir por " + this.quantum + " (Programa " + this.pId + ")");
-                sleep(1500);
+                sleep(5000);
             } catch (InterruptedException e) {
             }
         }

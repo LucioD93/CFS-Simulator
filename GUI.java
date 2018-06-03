@@ -52,7 +52,7 @@ public class GUI extends JFrame {
     }
 
     public DefaultTableModel getDtm() {
-        return dtm;
+        return this.dtm;
     }
 
     public void setDtm(DefaultTableModel dtm) {
@@ -64,7 +64,7 @@ public class GUI extends JFrame {
     }
 
     public DefaultTableModel getDtm_cpu() {
-        return dtm_cpu;
+        return this.dtm_cpu;
     }
 
     public void setDtm_cpu(int cpu, int process) {

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 class Producer extends Thread {
-    private CubbyHole cubbyHole;
+    private final CubbyHole cubbyHole;
     private ArrayList<Program> program_list;
 
     public Producer(CubbyHole c, ArrayList<Program> program_list){

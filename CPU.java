@@ -1,5 +1,5 @@
 class CPU extends Thread {
-    private CubbyHole cubbyHole;
+    private final CubbyHole cubbyHole;
     private int cpuId;
     private int pId;
     private int quantum;
@@ -20,12 +20,12 @@ class CPU extends Thread {
 
     public void run(){
         while(true){
-            this.pId = this.cubbyHole.get_process().getPid();
+            this.pId = this.cubbyHole.get_process(this.cpuId).getPid();
             this.quantum = this.calculateQuantum();
 
             try {
                 System.out.println("CPU " + this.cpuId + " Dormir por " + this.quantum + " (Programa " + this.pId + ")");
-                sleep(quantum);
+                sleep(1500);
             } catch (InterruptedException e) {
             }
         }

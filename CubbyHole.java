@@ -10,17 +10,17 @@ class CubbyHole{
     private int quantum = 2;
     private GUI gui;
 
-    public CubbyHole(ArrayList<Program> program_list){
+    public CubbyHole(ArrayList<Program> program_list, int cpu_nro){
         // Initialize GUI.
-        this.gui = new GUI(program_list, 1);
+        this.gui = new GUI(program_list, cpu_nro);
         this.gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.gui.setSize(1000,200);
         this.gui.setVisible(true);
     }
 
-    public CubbyHole(ArrayList<Program> program_list, int quantum){
+    public CubbyHole(ArrayList<Program> program_list, int cpu_nro, int quantum){
         // Initialize GUI.
-        this.gui = new GUI(program_list, 1);
+        this.gui = new GUI(program_list, cpu_nro);
         this.gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.gui.setSize(1000,200);
         this.gui.setVisible(true);
@@ -52,7 +52,7 @@ class CubbyHole{
         notifyAll();
     }
 
-    public synchronized Program get_process(){
+    public synchronized Program get_process(int cpuId){
 
         while (this.tree.isEmpty()){
             try {
@@ -65,9 +65,8 @@ class CubbyHole{
         Program program = this.tree.pop_most_left().get_key();
 
         // Update process in GUI.
-        //this.gui.setDtm_cpu(0, program.getPid());
         int auxPid = program.getPid();
-        this.gui.updateDtm_cpu(0, auxPid);
+        this.gui.updateDtm_cpu(cpuId, auxPid);
 
         if (program.isCompleted(this.quantum)){
             // Here we wait the remaining time for the process.

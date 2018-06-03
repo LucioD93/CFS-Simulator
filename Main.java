@@ -7,7 +7,7 @@ public class Main {
     	if (args.length == 1){
     		cpu_nro = Integer.valueOf(args[0]);
     	} else {
-    		cpu_nro = 0;
+    		cpu_nro = 1;
     	}
     	
         // Read data from xml file.

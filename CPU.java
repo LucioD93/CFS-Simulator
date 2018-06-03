@@ -13,9 +13,10 @@ class CPU extends Thread {
 
     public int calculateQuantum() {
         if (this.cubbyHole.getTree().getNumberOfNodes() == 0) {
+        	this.cubbyHole.updateCpuQuantum(this.cpuId, true);
             return this.cubbyHole.getInitialQuantum();
         }
-
+        this.cubbyHole.updateCpuQuantum(this.cpuId, false);
         return this.cubbyHole.getInitialQuantum()/this.cubbyHole.getTree().getNumberOfNodes();
     }
 

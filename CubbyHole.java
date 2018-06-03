@@ -44,6 +44,14 @@ class CubbyHole{
     public RedBlackTree<Program> getTree() {
         return this.tree;
     }
+    
+    public void updateCpuQuantum(int cpu, boolean empty) {
+    	if (empty) {
+    		this.gui.updateCpuQuantum(cpu, this.initialQuantum);
+    	}
+    	
+    	this.gui.updateCpuQuantum(cpu, this.initialQuantum/this.getTree().getNumberOfNodes());
+    }
 
     public synchronized void new_proccess(ArrayList<Program> program_list){
         Program program = program_list.remove(0);

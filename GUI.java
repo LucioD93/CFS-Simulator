@@ -6,7 +6,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class GUI extends JFrame {
     String[] columnNames = {"PID", "Time", "Time in CPU"};
-    String[] cpuColumnNames = {"Nro", "Process"};
+    String[] cpuColumnNames = {"Nro", "Quantum","Process"};
 
     JLabel quantum;
     JTable process_data;
@@ -36,13 +36,13 @@ public class GUI extends JFrame {
         add(new JScrollPane(this.process_data));
 
         // Setup cpu panel.
-        this.cpu_data = new JTable(cpu_nro, 2);
+        this.cpu_data = new JTable(cpu_nro, 3);
         this.dtm_cpu = new DefaultTableModel(0, 0);
 
         this.dtm_cpu.setColumnIdentifiers(this.cpuColumnNames);
         this.cpu_data.setModel(this.dtm_cpu);
 
-        Object [] aux = {0, -1};
+        Object [] aux = {0, -1, -1};
         for (int i=0; i < cpu_nro; i++){
             aux[0]= i;
             this.dtm_cpu.addRow(aux);
@@ -75,6 +75,10 @@ public class GUI extends JFrame {
     }
     
     public void updateDtm_cpu(int cpu, int process){
-    	this.dtm_cpu.setValueAt(process,cpu,1);
+    	this.dtm_cpu.setValueAt(process,cpu,2);
+    }
+    
+    public void updateCpuQuantum(int cpu, int quantum) {
+    	this.dtm_cpu.setValueAt(quantum,cpu,1);
     }
 }

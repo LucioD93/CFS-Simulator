@@ -10,8 +10,11 @@ class Producer extends Thread {
     }
 
     public void run(){
-        while (!program_list.isEmpty()){
-            this.cubbyHole.new_proccess(program_list);
+        // The producer runs forever waiting for new processes
+        while (true) {
+            if (!program_list.isEmpty()) {
+                this.cubbyHole.new_proccess(program_list);
+            }
         }
     }
 }

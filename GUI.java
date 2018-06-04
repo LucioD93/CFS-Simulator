@@ -12,6 +12,8 @@ public class GUI extends JFrame {
     JTable process_data;
     JTable cpu_data;
 
+    JButton new_process;
+
     DefaultTableModel dtm;
     DefaultTableModel dtm_cpu;
 
@@ -49,6 +51,13 @@ public class GUI extends JFrame {
         }
 
         add(new JScrollPane(this.cpu_data));
+
+        this.new_process = new JButton("New Process");
+        add(new_process);
+
+        HandlerClass handler = new HandlerClass(this, program_list);
+        this.new_process.addActionListener(handler);
+
     }
 
     public DefaultTableModel getDtm() {

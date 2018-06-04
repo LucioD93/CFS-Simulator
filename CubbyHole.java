@@ -6,7 +6,7 @@ import static java.lang.Thread.sleep;
 class CubbyHole{
     private RedBlackTree<Program> tree = new RedBlackTree<>();
 
-    private int initialQuantum = 100;
+    private int initialQuantum;
     private int quantum = 2;
     private GUI gui;
 
@@ -14,7 +14,7 @@ class CubbyHole{
         // Initialize GUI.
         this.gui = new GUI(program_list, cpu_nro);
         this.gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.gui.setSize(1000,200);
+        this.gui.setSize(1300,600);
         this.gui.setVisible(true);
     }
 
@@ -26,7 +26,7 @@ class CubbyHole{
         this.gui.setVisible(true);
 
         // Set quantum.
-        this.quantum = quantum;
+        this.initialQuantum = quantum;
     }
 
     public int getQuantum() {
@@ -49,7 +49,7 @@ class CubbyHole{
     	if (empty) {
     		this.gui.updateCpuQuantum(cpu, quantum);
     	} else {
-    	this.gui.updateCpuQuantum(cpu, quantum/nodes);
+    	    this.gui.updateCpuQuantum(cpu, quantum/nodes);
     	}
     }
 

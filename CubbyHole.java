@@ -45,12 +45,12 @@ class CubbyHole{
         return this.tree;
     }
     
-    public void updateCpuQuantum(int cpu, boolean empty) {
+    public void updateCpuQuantum(int cpu, boolean empty, int nodes, int quantum) {
     	if (empty) {
-    		this.gui.updateCpuQuantum(cpu, this.initialQuantum);
+    		this.gui.updateCpuQuantum(cpu, quantum);
+    	} else {
+    	this.gui.updateCpuQuantum(cpu, quantum/nodes);
     	}
-    	
-    	this.gui.updateCpuQuantum(cpu, this.initialQuantum/this.getTree().getNumberOfNodes());
     }
 
     public synchronized void new_proccess(ArrayList<Program> program_list){

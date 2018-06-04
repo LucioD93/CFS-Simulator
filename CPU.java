@@ -12,12 +12,15 @@ class CPU extends Thread {
     }
 
     public int calculateQuantum() {
-        if (this.cubbyHole.getTree().getNumberOfNodes() == 0) {
-        	this.cubbyHole.updateCpuQuantum(this.cpuId, true);
-            return this.cubbyHole.getInitialQuantum();
+    	int auxQuantum = this.cubbyHole.getInitialQuantum();
+    	int auxNodes = this.cubbyHole.getTree().getNumberOfNodes();
+    	
+        if ( auxNodes == 0) {
+        	this.cubbyHole.updateCpuQuantum(this.cpuId, true, auxNodes, auxQuantum);
+            return auxQuantum;
         }
-        this.cubbyHole.updateCpuQuantum(this.cpuId, false);
-        return this.cubbyHole.getInitialQuantum()/this.cubbyHole.getTree().getNumberOfNodes();
+        this.cubbyHole.updateCpuQuantum(this.cpuId, false, auxNodes, auxQuantum);
+        return auxQuantum/auxNodes;
     }
 
     public void run(){

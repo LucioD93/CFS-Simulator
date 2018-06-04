@@ -21,15 +21,16 @@ public class Program implements Comparable<Program> {
     }
 
     public void addExecutedTime(int time) {
-        Random random = new Random();
-        int rand = random.nextInt(10) + 1;
+        //Random random = new Random();
+        //int rand = random.nextInt(10) + 1;
         
         // Add random time, less than quantum, to simulate interruptions.
-        if (rand % 3 == 0){
-            this.timeExecuted += (time - rand);
-        } else {
-            this.timeExecuted += time;
-        }
+       // if (rand % 3 == 0){
+       //     this.timeExecuted += (time - rand);
+       // } else {
+        //    this.timeExecuted += time;
+        //}
+    	this.timeExecuted += time;
     }
 
     public int getExecutedTime() {

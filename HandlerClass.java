@@ -18,8 +18,7 @@ public class HandlerClass  implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
 
         Random random = new Random();
-        Program p = new Program(random.nextInt(1000), random.nextInt(30));
-        System.out.println("p: " + p.getPid() + "-" + p.getTimeRemaining());
+        Program p = new Program(this.gui.numberOfProcessOnTable++, random.nextInt(30));
         this.programs.add(p);
         this.gui.dtm.addRow(p.toArray());
     }

@@ -17,6 +17,8 @@ public class GUI extends JFrame {
     DefaultTableModel dtm;
     DefaultTableModel dtm_cpu;
 
+    int numberOfProcessOnTable = 0;
+
     public GUI(ArrayList<Program> program_list, int cpu_nro){
         super("Super Awesome CFS Simulator.");
         setLayout(new FlowLayout());
@@ -33,6 +35,7 @@ public class GUI extends JFrame {
 
         for (Program p: program_list){
             this.dtm.addRow(p.toArray());
+            numberOfProcessOnTable++;
         }
 
         add(new JScrollPane(this.process_data));

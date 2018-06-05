@@ -25,14 +25,16 @@ class CPU extends Thread {
 
     public void run(){
         while(true){
-            this.pId = this.cubbyHole.get_process(this.cpuId).getPid();
-            this.quantum = this.calculateQuantum();
-            this.cubbyHole.setQuantum(this.quantum);
-            
-            try {
-                System.out.println("CPU " + this.cpuId + " Dormir por " + this.quantum + " (Programa " + this.pId + ")");
-                sleep(5000);
-            } catch (InterruptedException e) {
+            if (!this.cubbyHole.getTree().isEmpty()) {
+                this.pId = this.cubbyHole.get_process(this.cpuId).getPid();
+                this.quantum = this.calculateQuantum();
+                this.cubbyHole.setQuantum(this.quantum);
+
+                try {
+                    System.out.println("CPU " + this.cpuId + " Dormir por " + this.quantum + " (Programa " + this.pId + ")");
+                    sleep(5000);
+                } catch (InterruptedException e) {
+                }
             }
         }
     }

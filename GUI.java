@@ -19,7 +19,7 @@ public class GUI extends JFrame {
 
     int numberOfProcessOnTable = 0;
 
-    public GUI(ArrayList<Program> program_list, int cpu_nro){
+    public GUI(ArrayList<Program> program_list, int cpu_nro, CubbyHole cubbyHole){
         super("Super Awesome CFS Simulator.");
         setLayout(new FlowLayout());
 
@@ -58,7 +58,7 @@ public class GUI extends JFrame {
         this.new_process = new JButton("New Process");
         add(new_process);
 
-        HandlerClass handler = new HandlerClass(this, program_list);
+        HandlerClass handler = new HandlerClass(this, program_list, cubbyHole);
         this.new_process.addActionListener(handler);
 
     }

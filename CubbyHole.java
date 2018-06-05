@@ -10,17 +10,9 @@ class CubbyHole{
     private int quantum = 2;
     private GUI gui;
 
-    public CubbyHole(ArrayList<Program> program_list, int cpu_nro){
-        // Initialize GUI.
-        this.gui = new GUI(program_list, cpu_nro);
-        this.gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.gui.setSize(1300,600);
-        this.gui.setVisible(true);
-    }
-
     public CubbyHole(ArrayList<Program> program_list, int cpu_nro, int quantum){
         // Initialize GUI.
-        this.gui = new GUI(program_list, cpu_nro);
+        this.gui = new GUI(program_list, cpu_nro, this);
         this.gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.gui.setSize(1000,200);
         this.gui.setVisible(true);

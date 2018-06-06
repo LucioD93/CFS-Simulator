@@ -20,8 +20,8 @@ public class Program implements Comparable<Program> {
         this.pid = pid;
     }
 
-    public void addExecutedTime(int time) {
-    	this.timeExecuted += time;
+    public void addExecutedTime(int time, int random) {
+    	this.timeExecuted += (time - random);
     }
 
     public int getExecutedTime() {

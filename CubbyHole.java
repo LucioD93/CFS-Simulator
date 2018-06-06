@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static java.lang.Thread.sleep;
 
@@ -64,6 +65,14 @@ class CubbyHole{
 
         Program program = this.tree.pop_most_left().get_key();
 
+        Random rand = new Random();
+        int aux = rand.nextInt(this.quantum+1)+1;
+        int random = 0;
+
+        if ((aux % 3 == 0) && (this.quantum - aux > 0)){
+            random = aux;
+        }
+
         // Update process in GUI.
         int auxPid = program.getPid();
         this.gui.updateDtm_cpu(cpuId, auxPid);
@@ -75,7 +84,7 @@ class CubbyHole{
             } catch (InterruptedException e) { }
             
             //We update the table
-            this.gui.updateDtm(auxPid, program.getTimeRemaining());
+            this.gui.updateDtm(auxPid, program.getTimeRemaining(), random);
             
         } else {
             // If program does not finish. We add the executed time and return it to the queue.
@@ -86,10 +95,10 @@ class CubbyHole{
             } catch (InterruptedException e) { }
             
             //Add runtime of cpu.
-            program.addExecutedTime(this.quantum);
+            program.addExecutedTime(this.quantum, random);
             
             //Update Executed Time in table.
-            this.gui.updateDtm(auxPid, program.getExecutedTime());
+            this.gui.updateDtm(auxPid, program.getExecutedTime(), random);
             
             //Insert into the tree
             this.tree.insert(program);

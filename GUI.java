@@ -5,7 +5,7 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class GUI extends JFrame {
-    String[] columnNames = {"PID", "Time", "Time in CPU"};
+    String[] columnNames = {"PID", "Time", "Time in CPU", "Random I/O"};
     String[] cpuColumnNames = {"Nro", "Quantum","Process"};
 
     JLabel quantum;
@@ -27,7 +27,7 @@ public class GUI extends JFrame {
         add(this.quantum);
 
         // Loads program_list into table.
-        this.process_data = new JTable(program_list.size()+2, 3);
+        this.process_data = new JTable(program_list.size()+2, 4);
         this.dtm = new DefaultTableModel(0, 0);
 
         this.dtm.setColumnIdentifiers(this.columnNames);
@@ -71,8 +71,10 @@ public class GUI extends JFrame {
         this.dtm = dtm;
     }
     
-    public void updateDtm(int process,int time){
+    public void updateDtm(int process,int time, int random){
     	this.dtm.setValueAt(time,process,2);
+    	this.dtm.setValueAt(random,process,3);
+
     }
 
     public DefaultTableModel getDtm_cpu() {
